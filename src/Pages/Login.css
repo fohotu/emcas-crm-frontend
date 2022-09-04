@@ -1,0 +1,12 @@
+.login_form{
+    background-color: #000c17;
+    padding: 30px 10px !important;
+    margin:20px !important;
+    max-width: 600px;
+}
+.login_form label{
+    color: #fff !important;
+}
+.ant-layout{
+    background-color: #fff !important;
+}
