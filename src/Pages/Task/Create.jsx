@@ -1,6 +1,6 @@
 import React,{useState, useEffect, useRef} from 'react'
 import { MinusCircleOutlined, PlusOutlined, UploadOutlined } from '@ant-design/icons';
-import { Button, Form, Input, Upload, Select, Card, Row, Col, Radio } from 'antd';
+import { Button, Form, Input, Upload, Select, Card, Row, Col, Radio, DatePicker } from 'antd';
 import { useDispatch } from 'react-redux';
 import { createNewTask } from '../../Redux/User/Action/Thunk/TaskThunk';
 import { url } from '../../Api/config';
@@ -22,6 +22,7 @@ function Create() {
     title:null,
     description:null,
     category:null,
+    selectedJobId:null,
     files:[],
     users:null,
    });
@@ -40,6 +41,7 @@ function Create() {
    useEffect(()=>{
        
     dispatch(getWorkListByCategory(categoryValue));
+    setCategoryValue(categoryValue);
     //dispatch(setNewTask({...newTask,selectedJobId:0}));
 
 },[categoryValue])
@@ -72,21 +74,27 @@ function Create() {
 
    const onFinish = (values) => {
         if(values.users){
-            setNewTask({...newTask,users:values.users});
+            let u=values.users.map((user)=>{
+                console.log(user);
+                return {...user,deadline:user.deadline.unix()}
+            });
+            setNewTask({...newTask,users:u});
         }
-    
         console.log(newTask);
+       // dispatch(createNewTask(newTask));
 
-        //dispatch(createNewTask(newTask));
     };
+
+  
 
   const uploadOptions = {
     action:url.file.upload,
     headers: {
         'Authorization' : 'Bearer ' + user.profile._token
     },
-    onChange({ file, fileList }) {
-      if(file.status !== 'uploading' ){
+    onChange({ file, fileList,event }) {
+     
+      if(file.status !== 'uploading' && file.status !== 'removed'){
 
         setNewTask ({
                ...newTask,
@@ -96,11 +104,15 @@ function Create() {
       }
     },
     onRemove:(file) => {
+        setNewTask({...newTask,files:newTask.files.filter(f => f.uid != file.uid)});
+        //console.log(file.status);
         if(file.status !== 'uploading' ) {
-            fileRemoveRequest(file,(response) => {
-                
+            fileRemoveRequest(file, (response) => {
+            
             },() => {})
+
         }
+    
     },
     maxCount:5,
     multiple:true,
@@ -110,7 +122,7 @@ function Create() {
   return (
     <>
         <Form 
-            onValuesChange={(changedValue,allValue)=>setUsers(allValue)}
+            //onValuesChange={(changedValue,allValue)=>setUsers(allValue)}
             name="dynamic_form_nest_item" 
             layout="horizontal" 
             onFinish={onFinish} 
@@ -118,8 +130,14 @@ function Create() {
             <Row gutter={8}>
                 <Col span={12}>
                     <Card >
-                        
-                                <Form.Item>
+                            <Form.Item
+                                      rules={[
+                                        {
+                                          required: true,
+                                          message: 'Please input task title!',
+                                        },
+                                      ]}
+                                >
                                             <Input onChange={(e)=>setNewTask({...newTask,title:e.target.value})} />
                                 </Form.Item>
                                 <Form.Item>
@@ -136,7 +154,7 @@ function Create() {
                                                     
                                 </Form.Item>  
                                 <Form.Item>
-                                    <Select>
+                                    <Select onChange={(v) => setNewTask({...newTask,selectedJobId:v})}>
                                         {
                                             workList.map((work) => {
                                                 return (
@@ -169,17 +187,17 @@ function Create() {
                                             rules = {[
                                                 {
                                                 required: true,
-                                                message: 'Missing first name',
+                                                message: '',
                                                 },
                                             ]}
                                             >
                                                 <Select
                                                     showSearch
-                                                    placeholder="Select a person"
-                                                    optionFilterProp="children"
-                                                    onChange={() => {}}
-                                                    onSearch={() => {}}
-                                                    filterOption={(input, option) => option.children.toLowerCase().includes(input.toLowerCase())}
+                                                    placeholder = "Select a person"
+                                                    optionFilterProp = "children"
+                                                    onChange = {() => {}}
+                                                    onSearch = {() => {}}
+                                                    filterOption = {(input, option) => option.children.toLowerCase().includes(input.toLowerCase())}
                                                 >
                                                     {
                                                         userList.map((user) => {
@@ -196,13 +214,21 @@ function Create() {
                                             rules={[
                                                 {
                                                 required: true,
-                                                message: 'Missing last name',
+                                                message: '',
                                                 },
                                             ]}
                                             >
                                             <Input.TextArea  rows = {4} />
                                             </Form.Item>
+                                            <Form.Item
+                                                name={[name, 'deadline']}
+                                                
+                                            >
+                                                <DatePicker />
+
+                                            </Form.Item>
                                             <MinusCircleOutlined onClick={() => remove(name)} />
+
                                         </> 
                                         ))}
                                         <Form.Item>
