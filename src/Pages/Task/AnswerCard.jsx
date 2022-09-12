@@ -4,8 +4,9 @@ import AnswerAction from './AnswerAction';
 import { commonAlert } from '../../Lib/Alert';
 import Download from '../../Components/Common/File/Download';
 import AnswerForm from '../../Components/Answer/AnswerForm';
+import { url } from '../../Api/config';
 
-function Answer({data,type}) {
+function Answer({data,type,loadData}) {
 
   const [isModalVisible,setModalVisible]=useState(false);
   const handleOk=()=>{
@@ -46,7 +47,8 @@ function Answer({data,type}) {
                     </p>
                     <div className='answer_file'>
                             {answer.files.map((file)=>{
-                                return <Download title={file.title} link={file.link} />
+
+                                return <Download title={file.title} link={url.download.simple+'/'+file.link} />
                             })}
                     </div>
                 </Card>
@@ -54,8 +56,8 @@ function Answer({data,type}) {
         }
 
 
-    <Modal  visible={isModalVisible} onOk={handleOk} onCancel={handleCancel}>
-        <AnswerForm />
+    <Modal  visible={isModalVisible} footer={null} onOk={handleOk} onCancel={handleCancel}>
+        <AnswerForm loadData = {loadData}  />
     </Modal>
 
     </>

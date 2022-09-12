@@ -10,16 +10,17 @@ import { useMemo } from 'react';
 function App() {
   
 
-  const dispatch=useDispatch();
-  
+  const dispatch = useDispatch();
   useMemo(() => {
     if(localStorage.getItem('user')){
-      const user=localStorage.getItem('user'); 
-      let js=JSON.parse(user)
+      const user = localStorage.getItem('user');
+     //alert(user); 
+      let js = JSON.parse(user);
       axios.defaults.headers.common['Authorization'] = 'Bearer '+js._token;
       dispatch(setAuthData(js));
-  
+    
     }
+
   },[]);
 
   const { user }= useSelector(state => state)

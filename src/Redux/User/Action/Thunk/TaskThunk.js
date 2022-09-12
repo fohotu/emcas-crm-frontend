@@ -2,7 +2,7 @@ import { setLoading, setTaskList, setSingleTask } from "../Simple/TaskAction";
 import { setTotalCount } from '../Simple/PaginationAction';
 
 import { taskListRequest , singleTaskRequest , createTaskRequest } from "../../../../Api/TaskRequest";
-
+import { commonAlert } from '../../../../Lib/Alert';
 
 export const getTaskListThunk = (params) => {
     return (dispatch) => {
@@ -42,7 +42,6 @@ export const getSingleTask = (id) => {
                     dispatch(setSingleTask(response.data));
                 }
                 dispatch(setLoading(false));
-              
             },
             (error)  =>  {
                 
@@ -58,16 +57,20 @@ export const createNewTask = (task) => {
         dispatch(setLoading(true));
         createTaskRequest(task,
              (response) => {
-                alert(1);
-                console.log(response);
+                if(response.data.saved){
+                    commonAlert('Новая задача создана!');
+                }else{
+                    commonAlert('Задача не создана. Попробуйте позже!','warning');
+                }
              },
              (error) => {
-                console.log(error);
-                alert(2);
+                commonAlert('Ошибка сервера. Повторите попытку позже.!','error');
              }  
         )
-        dispatch(setLoading(true));
+        dispatch(setLoading(false));
     }
 }
+
+
 
 

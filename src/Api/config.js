@@ -1,4 +1,4 @@
-const config={
+const config = {
     apiHost:'http://127.0.0.1:8000/api',
     wsHost:'http://127.0.0.1',
     wsPort:6001,
@@ -10,7 +10,7 @@ export const url={
 
     },
     answer:{
-
+        create:config.apiHost + '/answer/create',
     },
     category:{
         list:config.apiHost + '/category/list',
@@ -26,7 +26,9 @@ export const url={
         index:config.apiHost + '/tasks/index',
         single:config.apiHost + '/tasks/single',
         create:config.apiHost + '/tasks/create',
+        
     },
+
     user:{
         login:config.apiHost + '/login',
         list:config.apiHost + '/user/list',
@@ -43,6 +45,9 @@ export const url={
         simple:config.apiHost+'/search/simple',
         selfFilter:config.apiHost+'/search/filter',
     },
+    download:{
+        simple:config.apiHost+'/download',
+    }
 
 };
 

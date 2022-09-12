@@ -6,7 +6,7 @@ import AnswerCard from './AnswerCard';
 import TaskCard from './TaskCard';
 
 
-function SingleReceived({data,loading}) {
+function SingleReceived({data,loading,loadData}) {
     
     const { Meta } = Card;
     return (
@@ -18,7 +18,7 @@ function SingleReceived({data,loading}) {
                       <TaskCard data = {data} />
                     </Col>
                     <Col span = {12} >
-                      <AnswerCard type="recived" data={data} />
+                      <AnswerCard loadData={loadData} type="recived" data={data} />
                     </Col>
                 </Row>
                 :

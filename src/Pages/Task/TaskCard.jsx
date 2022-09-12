@@ -1,14 +1,27 @@
-import React from 'react';
-import { Card } from 'antd';
+import React,{useState} from 'react';
+import { Card , Modal} from 'antd';
+import Download from '../../Components/Common/File/Download';
 import { SettingOutlined,EditOutlined,EllipsisOutlined  } from '@ant-design/icons';
+import { url } from '../../Api/config';
+
 function TaskCard({data}) {
+
+    const [isModalVisible,setModelVisible] = useState(false);
+    const handleOk = () =>{
+        setModelVisible(false);
+    }
+
+    const handleCancel = () => {
+        setModelVisible(false);
+    }
+
   return (
     <>
         <Card
-            actions={[
-                        <SettingOutlined key="setting" />,
-                        <EditOutlined key="edit" />,
-                        <EllipsisOutlined key="ellipsis" />,
+            actions = {[
+                        <SettingOutlined key = "setting" onClick={()=>setModelVisible(true)}/>,
+                        <EditOutlined key = "edit" />,
+                        <EllipsisOutlined key = "ellipsis" />,
                     ]}
             className="task_card"
         >
@@ -34,7 +47,19 @@ function TaskCard({data}) {
                     {data.description}
                 </p>  
             </div>
+            <div className="post_unit">
+                <p>
+                    {
+                        data.task.files.map((file) => {
+                            return <Download title={file.title} link={url.download.simple+'/'+file.link} />
+                        })
+                    }
+                </p>  
+            </div>
         </Card>
+        <Modal  visible={isModalVisible} footer={null} onOk={handleOk} onCancel={handleCancel}>
+                    
+        </Modal>
     </>
   )
 }

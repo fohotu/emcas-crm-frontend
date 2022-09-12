@@ -18,3 +18,7 @@ export const singleTaskRequest =
 export const createTaskRequest = 
     (task,success,error) => 
     postRequest (url.task.create,task,success,error);    
+
+export const createAnswerForTaskRequest =     
+    (answer,success,error) => 
+    postRequest (url.answer.create,answer,success,error); 

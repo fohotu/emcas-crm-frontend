@@ -11,13 +11,17 @@ function TaskSingle() {
     const dispatch = useDispatch();
     const params = useParams();  
     
+    const loadData = () => {
+        dispatch(getSingleTask(params.id));
+    }
+
     useEffect(() => { 
-        dispatch(getSingleTask(params.id))
+        loadData();
     },[params.id])
 
     const { singleTask, loading } = useSelector(state => state.task);
 
-    console.log(singleTask);
+   
 
     
     return (
@@ -27,7 +31,7 @@ function TaskSingle() {
                 <SingleSent data = { singleTask } loading = { loading } />
             */
             }
-           { <SingleReceived data = { singleTask } loading = { loading } /> }
+           { <SingleReceived data = { singleTask } loadData = {loadData} loading = { loading } /> }
         </>
     );
 

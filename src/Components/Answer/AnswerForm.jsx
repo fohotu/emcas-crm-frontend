@@ -2,19 +2,29 @@ import React,{useState} from 'react'
 import { Card, Form ,Upload , Button , Input} from 'antd';
 import { UploadOutlined } from '@ant-design/icons';
 import { url } from '../../Api/config';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import { fileRemoveRequest } from '../../Api/FileRequest';
+import { useParams } from 'react-router-dom';
+import { createAnswerThunk } from '../../Redux/User/Action/Thunk/AnswerThunk';
+import { useForm } from 'antd/es/form/Form';
 
-function AnswerForm() {
+
+function AnswerForm({loadData}) {
     const {TextArea}=Input; 
 
+    const params = useParams();
+    const [form] = useForm();
+    const dispatch = useDispatch()
     const {user} = useSelector(state => state);
-    const [answer,setAnswer]=useState({
-        task_employee_id:null,
-        title:null,
-        description:null,
-        fileList:[],
-    });   
+  
+
+
+    const onFinish = (values) => {
+        dispatch(createAnswerThunk(values));
+        form.resetFields();
+        loadData();
+
+    };
 
     const uploadOptions = {
         action:url.file.upload,
@@ -23,11 +33,9 @@ function AnswerForm() {
         },
         onChange({ file, fileList }) {
           if(file.status !== 'uploading' ){
-               setAnswer ({
-                   ...answer,
-                   fileList: [...answer.fileList,file]
-               })
+          
           }
+
         },
         onRemove:(file) => {
             if(file.status !== 'uploading' ) {
@@ -43,9 +51,9 @@ function AnswerForm() {
 
   return (
     <div>
-        <Card title="Отправить ответ на задачу">
+        <Card title="Отправить ответ на задачу " >
                             <Form
-                                name=""
+                               
                                 labelCol={{
                                     span: 24,
                                 }}
@@ -56,8 +64,12 @@ function AnswerForm() {
                                     remember: true,
                                 }}
                                 autoComplete="off"
+                                onFinish={onFinish}
+                                form = {form}
                                 >
-
+                                    <Form.Item initialValue={params.id} hidden name="task_id" >
+                                        <Input  />
+                                    </Form.Item>
                                     <Form.Item
                                             label="Заголовок"
                                             name="title"
@@ -68,7 +80,7 @@ function AnswerForm() {
                                             },
                                             ]}
                                         >
-                                            <Input size="large"  value={answer.title} onChange={(e)=>{setAnswer({...answer,title:e.target.value})}} placeholder=""  />
+                                            <Input size="large"   placeholder=""  />
 
                                         </Form.Item>
 
@@ -85,15 +97,11 @@ function AnswerForm() {
                                             <TextArea 
                                                 rows={10} 
                                                 placeholder=""  
-                                                value={answer.title}
-                                                onChange={(e) => {
-                                                        setAnswer({...answer,description:e.target.value})
-                                                    }
-                                                } 
+                                              
                                             />
                                         </Form.Item>
 
-                                        <Form.Item>
+                                        <Form.Item  name="files">
                                             <Upload {...uploadOptions} >
                                                 <Button type="danger" shape="round" size="large" icon={<UploadOutlined />}>Загрузить файл</Button>
                                             </Upload>
@@ -105,7 +113,16 @@ function AnswerForm() {
                                             }}
                                         >
                                         </Form.Item>
+
+                                        <Form.Item>
+                                            <Button type="primary" block htmlType="submit">
+                                                Сохранить
+                                            </Button>
+                                        </Form.Item>
                                 </Form>
+
+
+
                     
                             </Card>
     </div>

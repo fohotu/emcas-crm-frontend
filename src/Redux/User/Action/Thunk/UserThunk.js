@@ -10,6 +10,7 @@ export const authUser = (auth) => {
                 const userData = JSON.stringify(response.data);            
                     dispatch(setAuthData(response.data));
                     localStorage.setItem('user',userData);
+                    window.location="/";
             },
             (error) => {
                 //dispatch(authError());

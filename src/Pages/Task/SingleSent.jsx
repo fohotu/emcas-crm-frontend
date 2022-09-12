@@ -15,7 +15,7 @@ function SingleSent({data,loading}) {
                  <Row>
                     <Col span={12}>
                      <TaskCard data={data}/>
-        
+                    
                     </Col>
                     <Col span={12}>
                         <AnswerCard />
