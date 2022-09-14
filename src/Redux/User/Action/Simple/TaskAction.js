@@ -16,3 +16,9 @@ export const setSingleTask=(task)=>({
     type:types.SET_SINGLE_TASK,
     payload:task
 });
+
+
+export const setTaskView=(task)=>({
+    type:types.SET_TASK_VIEW,
+    payload:task
+});

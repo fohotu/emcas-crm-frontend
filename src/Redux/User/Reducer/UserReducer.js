@@ -15,6 +15,8 @@ const initialState = {
         _role:null,
     },
     userList:[],
+    taskList:[],
+    loading:false,
 };
 
 const UserReducer = ( state = initialState, action ) => {
@@ -35,7 +37,14 @@ const UserReducer = ( state = initialState, action ) => {
                     _role:null,
                     _token:null    
                 }
-            }  
+            };
+        break;
+        case types.LOADING:
+            return {...state,loading:action.payload};
+        break;  
+        case types.SET_USER_TASKS:
+            console.log(action);
+            return {...state,taskList:action.payload};
         default:
             return state;
     }

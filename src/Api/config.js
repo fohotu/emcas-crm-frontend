@@ -26,12 +26,14 @@ export const url={
         index:config.apiHost + '/tasks/index',
         single:config.apiHost + '/tasks/single',
         create:config.apiHost + '/tasks/create',
+        view:config.apiHost + '/tasks/view',
         
     },
 
     user:{
         login:config.apiHost + '/login',
         list:config.apiHost + '/user/list',
+        task:config.apiHost + '/user/task',
     },
     work:{
         workListByCategory:config.apiHost + '/work/by-category',

@@ -15,3 +15,10 @@ export const setUserList = (users) => ({
     type:types.SET_USER_LIST,
     payload:users,
 });
+
+export const setUserTasks = (tasksList)=>({
+    type:types.SET_USER_TASKS,
+    payload:tasksList
+});
+
+

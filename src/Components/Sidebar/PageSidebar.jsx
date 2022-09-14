@@ -21,7 +21,7 @@ function PageSidebar() {
     
     
     const items = [
-      
+      getItem('Мои задачи', 'task/mine/1',<CheckCircleOutlined />),
       getItem('Входящие задачи', 'sub1', <MailOutlined />, [
         getItem('Запланированные задачи', 'task/1/inbox/1',<CheckCircleOutlined />),
         getItem('Не запланированные задачи', 'task/2/inbox/1',<CheckCircleOutlined />),

@@ -5,6 +5,7 @@ const initialState = {
     taskList: [],
     singleTask: {},
     loading: true,
+    taskView:{},
 };
 
 const TaskReducer = ( state = initialState, action ) => {
@@ -19,6 +20,9 @@ const TaskReducer = ( state = initialState, action ) => {
             return {...state,parentWork:action.payload};
         case types.LOADING:
             return {...state,loading:action.payload};
+        break;
+        case types.SET_TASK_VIEW:
+            return {...state,taskView:action.payload};
         break;
         default:
             return state;

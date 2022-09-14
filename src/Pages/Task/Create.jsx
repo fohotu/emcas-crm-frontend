@@ -80,6 +80,7 @@ function Create() {
       
     
     };
+
   return (
     <>
         <Form form = {form}  name="dynamic_form_nest_item" onFinish={onFinish} autoComplete="off">
@@ -227,6 +228,7 @@ function Create() {
                 
             </Col>
            </Row>
+        
         </Form>
     </>
   )

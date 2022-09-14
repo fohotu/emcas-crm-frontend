@@ -3,6 +3,7 @@ import { Card , Modal} from 'antd';
 import Download from '../../Components/Common/File/Download';
 import { SettingOutlined,EditOutlined,EllipsisOutlined  } from '@ant-design/icons';
 import { url } from '../../Api/config';
+import Edit from './Edit';
 
 function TaskCard({data}) {
 
@@ -58,7 +59,7 @@ function TaskCard({data}) {
             </div>
         </Card>
         <Modal  visible={isModalVisible} footer={null} onOk={handleOk} onCancel={handleCancel}>
-                    
+                    <Edit task={data}/>
         </Modal>
     </>
   )

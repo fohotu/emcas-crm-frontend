@@ -1,8 +1,9 @@
-import { setLoading, setTaskList, setSingleTask } from "../Simple/TaskAction";
+import { setLoading, setTaskList, setSingleTask, setTaskView } from "../Simple/TaskAction";
 import { setTotalCount } from '../Simple/PaginationAction';
 
-import { taskListRequest , singleTaskRequest , createTaskRequest } from "../../../../Api/TaskRequest";
+import { taskListRequest , singleTaskRequest , createTaskRequest, viewTaskRequest } from "../../../../Api/TaskRequest";
 import { commonAlert } from '../../../../Lib/Alert';
+
 
 export const getTaskListThunk = (params) => {
     return (dispatch) => {
@@ -68,6 +69,18 @@ export const createNewTask = (task) => {
              }  
         )
         dispatch(setLoading(false));
+    }
+}
+export const taskViewThunk = (id) => {
+    return (dispatch) => {
+        viewTaskRequest(id,
+            (response) => {
+                dispatch(setTaskView(response.data));
+            },
+            (error) => {
+
+            }    
+        )
     }
 }
 

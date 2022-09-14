@@ -5,7 +5,7 @@ export const SET_PARET = "SET_PARET";
 //Task
 export const SET_TASK_LIST = "SET_TASK_LIST";
 export const SET_SINGLE_TASK = "SET_SINGLE_TASK";
-
+export const SET_TASK_VIEW = "SET_TASK_VIEW";
 
 //Work
 export const SET_WORK_LIST = "SET_WORK_LIST";
@@ -19,6 +19,7 @@ export const SET_SINGLE_ANSWER = "SET_SINGLE_WORK";
 export const SET_AUTH = "SET_AUTH";
 export const LOGOUT = "LOGOUT";
 export const SET_USER_LIST = "SET_USER_LIST";
+export const SET_USER_TASKS = "SET_USER_TASKS";
 
 //Pagination
 export const SET_PAGINATION_DATA = "SET_PAGINATION_DATA";

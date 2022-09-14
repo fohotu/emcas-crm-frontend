@@ -11,9 +11,12 @@ import Result from './Search/Result';
 import Report from './Report/Report';
 import Self from './Report/Self';
 import Create from './Task/Create';
+import MyTask from './Task/MyTask';
+import Task from './Task/Task';
 
 
-function Main() {
+function Main(){
+
   const { Header, Footer, Sider, Content } = Layout;
 
   const dispatch=useDispatch();
@@ -23,22 +26,24 @@ function Main() {
   }
 
   return (
-    <Layout className='App'>
-      <Sider width={300}  className='layout_sidebar'>
+    <Layout className ='App'>
+      <Sider width ={300}  className='layout_sidebar'>
         <button onClick = {signOut} >Log out</button>
         <PageSidebar />
       </Sider>
       <Layout>
-        <Header className='layout_header'>
+        <Header className = 'layout_header'>
           <PageHeader />
         </Header>
-        <Content className='layout_content'>
+        <Content className = 'layout_content'>
            <Routes>
+              <Route path = "/task/mine/:page" element = {<MyTask />} /> 
+              <Route path = "/task/:id" element = {<Task />} /> 
               <Route path = "/task/:category/:box/:page" element = {<TaskList />} /> 
               <Route path = "/task/single/:id" element = {<TaskSingle />} /> 
               <Route path = "/task/create" element = {<Create />} /> 
               <Route path = "/search/:query/:page" element = {<Result />} /> 
-              <Route path="/report">
+              <Route path = "/report">
                   <Route path = "job" element = {<Report />} /> 
                   <Route path = "self" element = {<Self />} /> 
               </Route>
