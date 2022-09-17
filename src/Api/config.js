@@ -34,6 +34,7 @@ export const url={
         login:config.apiHost + '/login',
         list:config.apiHost + '/user/list',
         task:config.apiHost + '/user/task',
+        createTask:config.apiHost + '/user/task/create',
     },
     work:{
         workListByCategory:config.apiHost + '/work/by-category',

@@ -1,8 +1,9 @@
-import { authUserRequest, userListRequest, userTasksRequest } from "../../../../Api/UserRequest";
+import { authUserRequest, userListRequest, userTasksRequest,addUserToTaskRequest } from "../../../../Api/UserRequest";
 import { setAuthData, setUserList, setUserTasks } from "../Simple/UserAction";
 
 import { setLoading } from "../Simple/TaskAction";
 import { setTotalCount } from '../Simple/PaginationAction';
+import { commonAlert } from '../../../../Lib/Alert';
 
 export const authUser = (auth) => {
   
@@ -10,7 +11,7 @@ export const authUser = (auth) => {
 
         authUserRequest(auth,
             (response) => {
-                const userData = JSON.stringify(response.data);            
+                    const userData = JSON.stringify(response.data);            
                     dispatch(setAuthData(response.data));
                     localStorage.setItem('user',userData);
                     window.location="/";
@@ -56,11 +57,27 @@ export const getUserTasksThunk = (params) => {
                     dispatch(setTotalCount(response.data.total));
                     dispatch(setUserTasks(result));
                     dispatch(setLoading(false));
-                  }
+                }
             },
-            (error)=>{
+            (error) => {
                 //dispatch();
             });
         
     }
+}
+
+
+export const addUserToTask = (task) => {
+    return (dispatch) => {
+        addUserToTaskRequest(task,
+            (response) => {
+                console.log(response);
+                commonAlert('Новая задача создана!');
+            },
+            (error) => {
+
+            }
+        )
+    }
+
 }

@@ -19,3 +19,6 @@ export const userTasksRequest =
                 success,
                 error
         );        
+
+export const addUserToTaskRequest = (task,success,error) => 
+        postRequest(url.user.createTask,task,success,error);

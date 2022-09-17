@@ -1,11 +1,12 @@
 import React,{useEffect,useState} from 'react';
-import { Card, Col, Row, Avatar, Button, Modal, Form, Input, Select } from 'antd';
-import { UserOutlined,PlusOutlined } from '@ant-design/icons';
+import { Card, Col, Row, Avatar, Button, Modal, Form, Input, Select, DatePicker } from 'antd';
+import { UserOutlined,PlusOutlined, EditOutlined, EllipsisOutlined, SettingOutlined } from '@ant-design/icons';
 import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
 import { taskViewThunk } from '../../Redux/User/Action/Thunk/TaskThunk';
-import { getUserList } from '../../Redux/User/Action/Thunk/UserThunk';
-
+import { getUserList, addUserToTask } from '../../Redux/User/Action/Thunk/UserThunk';
+import Download from '../../Components/Common/File/Download';
+import { url } from '../../Api/config';
 
 function Task() { 
     
@@ -18,7 +19,7 @@ function Task() {
 
 
    const [isModalVisible,setModelVisible] = useState(false);
-   const handleOk = () =>{
+   const handleOk = () => {
        setModelVisible(false);
    }
 
@@ -26,23 +27,47 @@ function Task() {
        setModelVisible(false);
    }
    
-   
+
+   const onFinish = (values) => {
+    values.task_id = params.id;
+    if(values.deadline){
+        values.deadline = values.deadline.unix();
+    }
+    dispatch(addUserToTask(values));
+    // dispatch(taskViewThunk(params.id));
+    // setModelVisible(false);
+
+   }
+
    const {taskView} = useSelector(state => state.task);
    const {userList} = useSelector(state => state.user);
 
-   
-    
-    return (
+
+   return (
         <>
             <Row gutter = {8}>
                 <Col span = {12}>
-                    <Card>
+                    <Card
+                    actions={[
+                        <EditOutlined key="edit" />,
+                      ]}
+                    >
                         {taskView.title}
                         {taskView.description}
+                        <div className="post_unit">
+                            <p>
+                                {
+                                   (taskView.files) ? 
+                                        taskView.files.map((file) => {
+                                            return <Download title = {file.title} link = {url.download.simple+'/'+file.link} />
+                                        })
+                                    : ""
+                                }
+                            </p>  
+                        </div>
                     </Card>
                 </Col>
                 <Col span = {12}>
-                    
                         {
                                 (
                                     taskView.user
@@ -62,13 +87,14 @@ function Task() {
                         }
                         <Button type='primary' onClick={() => setModelVisible(true)}><PlusOutlined /></Button>            
                 </Col>
-
+                
             </Row>
             <Modal  visible={isModalVisible} footer={null} onOk={handleOk} onCancel={handleCancel}>
                    <Card>
-                        <Form>
-                        <Form.Item
-                               
+                        <Form
+                            onFinish={onFinish}
+                        >
+                        <Form.Item    
                                 name = "user"
                                 rules = {[
                                     {
@@ -93,11 +119,15 @@ function Task() {
                                         }
                                     </Select>
                                 </Form.Item>
-                            <Form.Item>
+                            <Form.Item name = "description">
                                 <Input.TextArea />
                             </Form.Item>
+                            <Form.Item name = "deadline">
+                                <DatePicker />
+                            </Form.Item>
+                           
                             <Form.Item>
-                                 <Button type="primary" htmlType="submit">
+                                 <Button type = "primary" htmlType="submit">
                                      Сохранить
                                 </Button>
                             </Form.Item>
