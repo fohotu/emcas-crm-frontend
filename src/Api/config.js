@@ -27,7 +27,7 @@ export const url={
         single:config.apiHost + '/tasks/single',
         create:config.apiHost + '/tasks/create',
         view:config.apiHost + '/tasks/view',
-        
+        update:config.apiHost + '/tasks/update',
     },
 
     user:{
@@ -35,9 +35,12 @@ export const url={
         list:config.apiHost + '/user/list',
         task:config.apiHost + '/user/task',
         createTask:config.apiHost + '/user/task/create',
+        removeTask:config.apiHost + '/user/task/remove',
     },
     work:{
         workListByCategory:config.apiHost + '/work/by-category',
+        workPaginatedListByCategory:config.apiHost + '/work/by-category/paginate',
+        create:config.apiHost + '/work/create',
     },
     file:{
         upload:config.apiHost+'/file/upload',

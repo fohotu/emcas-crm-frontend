@@ -13,6 +13,8 @@ import Self from './Report/Self';
 import Create from './Task/Create';
 import MyTask from './Task/MyTask';
 import Task from './Task/Task';
+import Job from './Job/Job';
+
 
 
 function Main(){
@@ -47,6 +49,7 @@ function Main(){
                   <Route path = "job" element = {<Report />} /> 
                   <Route path = "self" element = {<Self />} /> 
               </Route>
+              <Route path = "/job/:category/:page" element = {<Job />} /> 
             </Routes>
         </Content>
         <Footer className='layout_footer'>Footer</Footer>

@@ -22,3 +22,6 @@ export const userTasksRequest =
 
 export const addUserToTaskRequest = (task,success,error) => 
         postRequest(url.user.createTask,task,success,error);
+
+export const removeUserFromTaskRequest = (user,success,error) => 
+        postRequest(url.user.removeTask,user,success,error);       

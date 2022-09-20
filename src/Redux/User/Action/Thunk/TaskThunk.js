@@ -1,8 +1,9 @@
 import { setLoading, setTaskList, setSingleTask, setTaskView } from "../Simple/TaskAction";
 import { setTotalCount } from '../Simple/PaginationAction';
 
-import { taskListRequest , singleTaskRequest , createTaskRequest, viewTaskRequest } from "../../../../Api/TaskRequest";
+import { taskListRequest , singleTaskRequest , createTaskRequest, viewTaskRequest, updateTaskRequest } from "../../../../Api/TaskRequest";
 import { commonAlert } from '../../../../Lib/Alert';
+
 
 
 export const getTaskListThunk = (params) => {
@@ -12,7 +13,7 @@ export const getTaskListThunk = (params) => {
             params,
             (response) => {
                 if(response.data){
-                    let result=response.data.data.map((item)=>({
+                    let result = response.data.data.map((item) => ({
                       key:item.id,
                       user:item.sender.email,
                       title:item.task.title,
@@ -78,8 +79,26 @@ export const taskViewThunk = (id) => {
                 dispatch(setTaskView(response.data));
             },
             (error) => {
-
+                commonAlert('Ошибка сервера. Повторите попытку позже.!','error');
             }    
+        )
+    }
+}
+
+
+export const updateTaskThunk = (task) => {
+    return (dispatch) => {
+        updateTaskRequest(task,
+            (response) => {
+                if(response.data.saved){
+                    commonAlert('Задача успешно обновлена!');
+                }else{
+                    commonAlert('Задача не обновлена. Попробуйте позже!','warning');
+                }
+            },
+            (error) => {
+                commonAlert('Ошибка сервера. Повторите попытку позже.!','error');
+            }
         )
     }
 }

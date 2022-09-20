@@ -26,3 +26,7 @@ export const createAnswerForTaskRequest =
 export const viewTaskRequest = 
     (id, success, error ) => 
     getRequest (`${url.task.view}/${id}/`, success, error ); 
+
+export const updateTaskRequest = 
+    (task,success,error) => 
+    postRequest (url.task.update,task,success,error);           

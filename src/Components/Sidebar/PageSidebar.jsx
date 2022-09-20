@@ -36,8 +36,8 @@ function PageSidebar() {
         getItem('Изменить профиль', 'user',<CheckCircleOutlined />),
       ]),
       getItem('Регистрация', 'sub4', <CheckCircleOutlined />, [
-        getItem(' Плановой работы', 'reg/1/1',<CheckCircleOutlined />),
-        getItem('Не плановой работы', 'reg/2/1',<CheckCircleOutlined />),
+        getItem(' Плановой работы', 'job/1/1',<CheckCircleOutlined />),
+        getItem('Не плановой работы', 'job/2/1',<CheckCircleOutlined />),
       ]),
       
      

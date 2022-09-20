@@ -1,4 +1,4 @@
-import { authUserRequest, userListRequest, userTasksRequest,addUserToTaskRequest } from "../../../../Api/UserRequest";
+import { authUserRequest, userListRequest, userTasksRequest,addUserToTaskRequest, removeUserFromTaskRequest } from "../../../../Api/UserRequest";
 import { setAuthData, setUserList, setUserTasks } from "../Simple/UserAction";
 
 import { setLoading } from "../Simple/TaskAction";
@@ -71,7 +71,6 @@ export const addUserToTask = (task) => {
     return (dispatch) => {
         addUserToTaskRequest(task,
             (response) => {
-                console.log(response);
                 commonAlert('Новая задача создана!');
             },
             (error) => {
@@ -80,4 +79,20 @@ export const addUserToTask = (task) => {
         )
     }
 
+}
+
+
+export const removeUserFromTaskThunk = (user) =>{
+    return (dispatch) => {
+        removeUserFromTaskRequest(user,
+        (response) => {
+            if(response.data.removed){
+                commonAlert('Пользователь успешно удален!');
+            }else{
+                commonAlert('Пользователь не удален! Попробуйте позже','warning');
+            }
+        },(error) => {
+            commonAlert('Ошибка сервера. Повторите попытку позже.!','error');
+        })
+    }
 }
