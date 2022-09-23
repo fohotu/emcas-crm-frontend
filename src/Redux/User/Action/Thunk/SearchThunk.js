@@ -2,6 +2,7 @@ import { setLiveSearchItem ,setSimpleSearchItem ,setSelfFilterItem } from '../Si
 import { liveRequest, simpleRequest, selfFilterRequest } from '../../../../Api/SearchRequest';
 import { setTotalCount } from '../Simple/PaginationAction';
 import { setLoading } from '../Simple/TaskAction';
+import { DatabaseFilled } from '@ant-design/icons';
 
 export const liveSearchThunk = (query) => {
     return (dispatch) => {
@@ -60,10 +61,24 @@ export const simpleSearchThunk = (query) => {
 
 
 export const selfFilterThunk = (query) => {
+  console.log(query);
   return (dispatch) => {
+    dispatch(setLoading(true));
     selfFilterRequest(query,
         (response) => {
-          console.log(response);
+          console.log(response.data.data);
+          let dataSource = response.data.data.map((item)=>{
+            return {
+              title:item.task.title,
+              description:item.description,
+            };
+          });
+
+          console.log(dataSource);
+          dispatch(setSelfFilterItem(dataSource));
+          dispatch(setTotalCount(response.data.total));
+          dispatch(setLoading(false));
+        
         },
         () => {
           

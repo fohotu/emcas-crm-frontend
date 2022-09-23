@@ -14,13 +14,13 @@ import Create from './Task/Create';
 import MyTask from './Task/MyTask';
 import Task from './Task/Task';
 import Job from './Job/Job';
+import SingleJob from './Job/Single';
 
 
 
 function Main(){
 
   const { Header, Footer, Sider, Content } = Layout;
-
   const dispatch=useDispatch();
   const signOut = () => {
     localStorage.removeItem('user');
@@ -49,7 +49,10 @@ function Main(){
                   <Route path = "job" element = {<Report />} /> 
                   <Route path = "self" element = {<Self />} /> 
               </Route>
-              <Route path = "/job/:category/:page" element = {<Job />} /> 
+              <Route path = "/job">
+                  <Route path = ":category/:page" element = {<Job />} /> 
+                  <Route path = "single/:id" element = {<SingleJob />} /> 
+              </Route>
             </Routes>
         </Content>
         <Footer className='layout_footer'>Footer</Footer>

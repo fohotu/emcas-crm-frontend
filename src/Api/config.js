@@ -41,12 +41,14 @@ export const url={
         workListByCategory:config.apiHost + '/work/by-category',
         workPaginatedListByCategory:config.apiHost + '/work/by-category/paginate',
         create:config.apiHost + '/work/create',
+        single:config.apiHost + '/work/single',
+        update:config.apiHost + '/work/update',
     },
     file:{
         upload:config.apiHost+'/file/upload',
         remove:config.apiHost+'/file/remove'
     },
-    search:{
+    search: {
         live:config.apiHost+'/search/live',
         simple:config.apiHost+'/search/simple',
         selfFilter:config.apiHost+'/search/filter',

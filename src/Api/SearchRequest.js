@@ -21,7 +21,7 @@ export const simpleRequest =
 
 export const selfFilterRequest = 
     (q,success,error) => getRequest (
-        `${url.search.selfFilter}/${q.start}/${q.end}/${q.category}/${q.term}?page=${q.page}`,
+        `${url.search.selfFilter}/${q.start}/${q.end}/${q.category}/?page=${q.page}`,
         success,
         error
     )  

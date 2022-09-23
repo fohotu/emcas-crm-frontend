@@ -1,7 +1,8 @@
-import { setWorkList } from '../Simple/WorkAction';
-import { workListRequest, workPaginatedListRequest, createNewJobRequest } from '../../../../Api/WorkRequest';
+import { setWorkList,setSingleWork } from '../Simple/WorkAction';
+import { workListRequest, workPaginatedListRequest, createNewJobRequest, getSingleWorkRequest, updateJobRequest } from '../../../../Api/WorkRequest';
 import { setTotalCount } from '../Simple/PaginationAction';
 import { setLoading } from '../Simple/TaskAction';
+import { commonAlert } from '../../../../Lib/Alert';
 
 
 export const getWorkListByCategory = (category) => {
@@ -42,12 +43,55 @@ export const workPaginatedListThunk = (params) => {
 }  
 
 export const createNewJobThunk = (job) => {
-    createNewJobRequest(job,
-        (response) => {
-            console.log(response)
-        },
-        (error)=>{
+    return (dispatch) =>{
+        createNewJobRequest(job,
+            (response) => {
+                if(response.datad.data.updated){
+                  //  dispatch(getSingleWorkThunk(job.id));
+                   // commonAlert('Задача успешно обновлена!');
+                }
+            },
+            (error)=>{
+    
+            }
+        )
+    }
+   
+}
 
-        }
-    )
+
+
+
+
+export const getSingleWorkThunk = (id) => {
+    return (dispatch) => {
+        getSingleWorkRequest(id,
+            (response) => {
+                dispatch(setSingleWork(response.data))
+                console.log(response);
+            },
+            (error) => {
+    
+            }
+        )
+    }
+   
+}
+
+
+export const updateWorkThunk = (work) => {
+    return (dispatch) => {
+        updateJobRequest(work,
+            (response) => {
+                if(response.data.updated){
+                    dispatch(getSingleWorkThunk(work.id));
+                    commonAlert('Задача успешно обновлена!');
+                }
+                console.log(response);
+            },
+            (error)=>{
+
+            },
+        )
+    }
 }
