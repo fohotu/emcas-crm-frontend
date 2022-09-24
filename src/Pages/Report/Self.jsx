@@ -1,21 +1,32 @@
 import React,{useState,useEffect} from 'react';
 import { Calendar,Row, Col, Card,Button , Select, Form} from 'antd';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate, useParams } from 'react-router-dom';
 import './Self.css';
 import { selfFilterThunk } from '../../Redux/User/Action/Thunk/SearchThunk';
 
 import { useDispatch, useSelector } from 'react-redux';
 import { getCategoryList } from '../../Redux/User/Action/Thunk/CategoryThunk';
 import List from '../Task/List';
-
+import { setCurrentPage } from '../../Redux/User/Action/Simple/PaginationAction';
 
 const Self = () => {
     
     const dispatch = useDispatch();
-
+    const navigate = useNavigate();
+    const params = useParams();
+    
     useEffect(()=>{
         dispatch(getCategoryList());
     },[])
+
+    useEffect(() => {
+       // dispatch(setCurrentPage(params.page));
+        dispatch({
+            type:'SET_CURRENT_PAGE',
+            payload:params.page
+        });
+        setFilter({...filter,page:params.page});
+    },[params.page])
 
     const {categoryList} = useSelector(state => state.category);
     const {selfFilter} = useSelector(state => state.search);
@@ -36,15 +47,11 @@ const Self = () => {
     };
 
     const filterHandler = () => {
-
-        setFilter({...filter,page:currentPage});
         dispatch(selfFilterThunk(filter));
-
     }
 
     const data = {
         columns : [
-          
             {
               title: 'Название',
               dataIndex: 'title',
@@ -66,7 +73,10 @@ const Self = () => {
       const paginate = {
         ...pagination,
         onChange: (pageNumber) => {
-          //navigate(`/task/${params.category}/${params.box}/${pageNumber}`); 
+            setCurrentPage(pageNumber);
+          navigate(`/report/self/${pageNumber}`); 
+          
+          filterHandler();
         }
       };
 
@@ -109,7 +119,7 @@ const Self = () => {
             </Row>
             <Row gutter = {16} className='row_block'>
                 <Col>
-                    {/*
+                    {
                         <Select filterOption={false} style = {{width:200}} onChange={(val)=> setFilter({...filter,category:val})}>
                             {
                                 categoryList.map((category) => {
@@ -117,11 +127,13 @@ const Self = () => {
                                 })
                             }
                         </Select>
-                     */   }
+                       }
                         {
+                            /*
                                 categoryList.map((category) => {
                                     return  category.title; 
                                 })
+                                */
                             }
                 </Col>
                 <Col>

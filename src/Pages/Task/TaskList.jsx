@@ -34,7 +34,7 @@ function TaskList(){
           title: 'Название',
           dataIndex: 'title',
           key: 'title',
-          render: (text,record,index) => { return ((record) ? <Link  className="single_link" to={`/task/single/${record.key}`} >{text}</Link> : "")},
+          render: (text,record,index) => { return ((record) ? <Link  className="single_link" to={`/task/${params.box}/single/${record.key}`} >{text}</Link> : "")},
         },
         {
           title: 'Описание',

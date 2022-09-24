@@ -21,7 +21,6 @@ const SearchReducer = ( state = initialState, action ) => {
         case types.SET_SIMPLE_SEARCH_ITEM:
             return {...state,simple: {items:action.payload}};  
         case types.SET_SELF_FILTER_ITEM:
-            alert(123);
             return {...state,selfFilter: {items:action.payload}}; 
         default:
             return state;

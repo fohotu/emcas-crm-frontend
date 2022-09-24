@@ -42,12 +42,12 @@ function Main(){
               <Route path = "/task/mine/:page" element = {<MyTask />} /> 
               <Route path = "/task/:id" element = {<Task />} /> 
               <Route path = "/task/:category/:box/:page" element = {<TaskList />} /> 
-              <Route path = "/task/single/:id" element = {<TaskSingle />} /> 
+              <Route path = "/task/:type/single/:id" element = {<TaskSingle />} /> 
               <Route path = "/task/create" element = {<Create />} /> 
               <Route path = "/search/:query/:page" element = {<Result />} /> 
               <Route path = "/report">
                   <Route path = "job" element = {<Report />} /> 
-                  <Route path = "self" element = {<Self />} /> 
+                  <Route path = "self/:page" element = {<Self />} /> 
               </Route>
               <Route path = "/job">
                   <Route path = ":category/:page" element = {<Job />} /> 

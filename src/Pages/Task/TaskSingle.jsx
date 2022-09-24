@@ -11,6 +11,8 @@ function TaskSingle() {
     const dispatch = useDispatch();
     const params = useParams();  
     
+    console.log(params);
+
     const loadData = () => {
         dispatch(getSingleTask(params.id));
     }
@@ -20,18 +22,15 @@ function TaskSingle() {
     },[params.id])
 
     const { singleTask, loading } = useSelector(state => state.task);
-
-   
-
     
     return (
         <>
            { 
-           /*
-                <SingleSent data = { singleTask } loading = { loading } />
-            */
+                params.type =='inbox' ?
+                <SingleReceived data = { singleTask } loadData = {loadData} loading = { loading } />
+                :
+                <SingleSent data = { singleTask } loading = { loading } loadData = {loadData} />
             }
-           { <SingleReceived data = { singleTask } loadData = {loadData} loading = { loading } /> }
         </>
     );
 

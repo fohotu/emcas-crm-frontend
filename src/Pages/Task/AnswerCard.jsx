@@ -16,12 +16,16 @@ function Answer({data,type,loadData}) {
     setModalVisible(false);
   } 
 
- 
+
 
   return (
     <>
         <Card className = "task_card">
-            <Button type="primary" onClick={()=>setModalVisible(true)}>Ответить</Button>
+            {
+               type !='sender' ?
+                <Button type="primary" onClick={()=>setModalVisible(true)}>Ответить</Button>
+                :""
+            }
         </Card>
         {
             data.answer.map((answer) => {
@@ -35,7 +39,7 @@ function Answer({data,type,loadData}) {
                                 type=='sender' ?
                                     <AnswerAction />
                                 :
-                                <Button style={{display:"none"}} onClick = { () => commonAlert('Hello Alert!') } >Комментировать</Button> 
+                                <Button style={{display:'none'}} onClick = { () => commonAlert('Hello Alert!') } >Комментировать</Button> 
                             }
                         </p>
                     </div>

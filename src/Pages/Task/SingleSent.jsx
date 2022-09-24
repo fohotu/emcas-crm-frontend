@@ -5,7 +5,8 @@ import './SingleSent.css';
 import AnswerCard from './AnswerCard';
 import TaskCard from './TaskCard';
 
-function SingleSent({data,loading}) {
+function SingleSent({data,loading,loadData}) {
+   
     
     const { Meta } = Card;
     return (
@@ -18,7 +19,7 @@ function SingleSent({data,loading}) {
                     
                     </Col>
                     <Col span={12}>
-                        <AnswerCard />
+                        <AnswerCard loadData={loadData} type="sender" data={data} />
                     </Col>
                 </Row>
                 

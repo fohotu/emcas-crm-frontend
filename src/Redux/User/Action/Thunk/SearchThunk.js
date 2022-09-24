@@ -61,26 +61,25 @@ export const simpleSearchThunk = (query) => {
 
 
 export const selfFilterThunk = (query) => {
-  console.log(query);
   return (dispatch) => {
     dispatch(setLoading(true));
     selfFilterRequest(query,
         (response) => {
-          console.log(response.data.data);
-          let dataSource = response.data.data.map((item)=>{
-            return {
-              title:item.task.title,
-              description:item.description,
-            };
+          let dataSource = response.data.data.map((item) => {
+            if(item.task){
+              return {
+                title: item.task.title,
+                description: item.description,
+              };
+            }
+            
           });
-
-          console.log(dataSource);
           dispatch(setSelfFilterItem(dataSource));
           dispatch(setTotalCount(response.data.total));
           dispatch(setLoading(false));
         
         },
-        () => {
+        (error) => {
           
         }
       )
