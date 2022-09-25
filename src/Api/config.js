@@ -28,6 +28,7 @@ export const url={
         create:config.apiHost + '/tasks/create',
         view:config.apiHost + '/tasks/view',
         update:config.apiHost + '/tasks/update',
+        changeStatus:config.apiHost + '/tasks/change-status',
     },
 
     user:{

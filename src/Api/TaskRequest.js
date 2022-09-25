@@ -29,4 +29,8 @@ export const viewTaskRequest =
 
 export const updateTaskRequest = 
     (task,success,error) => 
-    postRequest (url.task.update,task,success,error);           
+    postRequest (url.task.update,task,success,error);          
+
+export const changeTaskStatusRequest = 
+    (task,success,error) => 
+    postRequest (url.task.changeStatus,task,success,error);    

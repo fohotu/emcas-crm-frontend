@@ -21,20 +21,24 @@ function PageSidebar() {
     
     
     const items = [
+      getItem('Создать задачу', 'task/create',<CheckCircleOutlined />),
       getItem('Мои задачи', 'task/mine/1',<CheckCircleOutlined />),
+      getItem('Отчет', 'report/self/1',<CheckCircleOutlined />),
+    
       getItem('Входящие задачи', 'sub1', <MailOutlined />, [
         getItem('Запланированные задачи', 'task/1/inbox/1',<CheckCircleOutlined />),
         getItem('Не запланированные задачи', 'task/2/inbox/1',<CheckCircleOutlined />),
       ],'dvider'),
       getItem('Исходящие задачи', 'sub2', <AppstoreOutlined />, [
-        getItem('Создать задачу', 'task/create',<CheckCircleOutlined />),
         getItem('Запланированные задачи', 'task/1/outbox/1',<CheckCircleOutlined />),
         getItem('Не запланированные задачи', 'task/2/outbox/1',<CheckCircleOutlined />),
       ]),
+      /*
       getItem('Настройки', 'sub3', <SettingOutlined />, [
-        getItem('Отчет', 'report',<CheckCircleOutlined />),
+        getItem('Отчет', 'report/self/1',<CheckCircleOutlined />),
         getItem('Изменить профиль', 'user',<CheckCircleOutlined />),
       ]),
+      */
       getItem('Регистрация', 'sub4', <CheckCircleOutlined />, [
         getItem(' Плановой работы', 'job/1/1',<CheckCircleOutlined />),
         getItem('Не плановой работы', 'job/2/1',<CheckCircleOutlined />),

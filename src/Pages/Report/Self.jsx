@@ -8,6 +8,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { getCategoryList } from '../../Redux/User/Action/Thunk/CategoryThunk';
 import List from '../Task/List';
 import { setCurrentPage } from '../../Redux/User/Action/Simple/PaginationAction';
+import { setLoading } from '../../Redux/User/Action/Simple/TaskAction';
 
 const Self = () => {
     
@@ -17,6 +18,7 @@ const Self = () => {
     
     useEffect(()=>{
         dispatch(getCategoryList());
+        dispatch(setLoading(false));
     },[])
 
     useEffect(() => {
@@ -48,6 +50,7 @@ const Self = () => {
 
     const filterHandler = () => {
         dispatch(selfFilterThunk(filter));
+        
     }
 
     const data = {
@@ -83,9 +86,8 @@ const Self = () => {
 
     return (
         <>
-
             <Row gutter = {16} className='row_block'>
-                <Col >
+                <Col style={{display:'none'}}>
                     <Link to="/report/job">
                         <Button>
                             Job Clendar
@@ -97,23 +99,16 @@ const Self = () => {
                         </Button>
                     </Link>
                 </Col>
-            
             </Row>
-           
-            
             <Row gutter = {16} className='row_block'>
                 <Col span = {12} >
                     <Card>
-                        
-                            <Calendar onChange = {(moment) => { setFilter({...filter,start:moment.format()}) }} fullscreen={false} onPanelChange={onPanelChange} />
-                      
+                        <Calendar onChange = {(moment) => { setFilter({...filter,start:moment.format()}) }} fullscreen={false} onPanelChange={onPanelChange} />
                     </Card>
                 </Col>
                 <Col span = {12} >
                     <Card>
-                      
-                            <Calendar onChange = {(moment) => { setFilter({...filter,end:moment.format() }) }} fullscreen = {false} onPanelChange = {onPanelChange} />
-                        
+                        <Calendar onChange = {(moment) => { setFilter({...filter,end:moment.format() }) }} fullscreen = {false} onPanelChange = {onPanelChange} />
                     </Card>
                 </Col>
             </Row>

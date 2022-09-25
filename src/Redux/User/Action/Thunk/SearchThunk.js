@@ -70,9 +70,9 @@ export const selfFilterThunk = (query) => {
               return {
                 title: item.task.title,
                 description: item.description,
+                status:item.status,
               };
             }
-            
           });
           dispatch(setSelfFilterItem(dataSource));
           dispatch(setTotalCount(response.data.total));

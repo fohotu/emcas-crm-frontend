@@ -5,6 +5,7 @@ import {useDispatch, useSelector} from 'react-redux';
 import { useParams,useNavigate,Link } from 'react-router-dom';
 import { getTaskListThunk } from '../../Redux/User/Action/Thunk/TaskThunk';
 import { setCurrentPage } from '../../Redux/User/Action/Simple/PaginationAction';
+import { Typography } from 'antd';
 
 
 function TaskList(){
@@ -45,6 +46,8 @@ function TaskList(){
           title: 'Статус',
           dataIndex: 'status',
           key: 'status',
+          render: (text,record,index) => { return ((text=='finished') ? <Typography.Text type="success">Завершенный</Typography.Text> : <Typography.Text type="warning">Активный</Typography.Text>)},
+
         }
     ],
     source:taskList,

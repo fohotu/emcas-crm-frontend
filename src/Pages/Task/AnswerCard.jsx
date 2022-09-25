@@ -33,11 +33,11 @@ function Answer({data,type,loadData}) {
                     key={answer.id}
                     className = "task_card"
                 >
-                    <div className = 'action_box' >
-                        <p>
+                    <div style={{display:'none'}} className = 'action_box' >
+                        <p >
                             {
                                 type=='sender' ?
-                                    <AnswerAction />
+                                    <AnswerAction  />
                                 :
                                 <Button style={{display:'none'}} onClick = { () => commonAlert('Hello Alert!') } >Комментировать</Button> 
                             }
